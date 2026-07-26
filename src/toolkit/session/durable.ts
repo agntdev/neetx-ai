@@ -37,6 +37,8 @@ export interface DOStub {
 }
 export interface WorkerEnv {
   BOT_TOKEN: string;
+  /** Deployment secret used only by the Gemini HTTPS client. */
+  GOOGLE_GEMINI_API_KEY?: string;
   WEBHOOK_SECRET?: string;
   CHAT_DO: DONamespace;
   DB?: unknown; // D1 binding (app data); see AGENTS.md
