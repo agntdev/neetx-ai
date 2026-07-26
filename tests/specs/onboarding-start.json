@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Collect required student profile data"
+              "text": "Let’s build your study plan. What should I call you?"
             }
           }
         ],
@@ -15,6 +15,18 @@
           "callback": "onboarding:start"
         }
       }
+    ]
+  }
+  ,
+  {
+    "name": "Onboarding collects every required profile field",
+    "steps": [
+      { "send": { "callback": "onboarding:start" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Let’s build your study plan. What should I call you?" } }] },
+      { "send": { "text": "Aarav" }, "expect": [{ "method": "sendMessage", "payload": { "text": "When is your NEET exam? Send it as DD-MM-YYYY." } }] },
+      { "send": { "text": "05-05-2027" }, "expect": [{ "method": "sendMessage", "payload": { "text": "What was your latest NEET-style score? Send a number from 0 to 720." } }] },
+      { "send": { "text": "420" }, "expect": [{ "method": "sendMessage", "payload": { "text": "How much time can you study daily?" } }] },
+      { "send": { "callback": "plan:window:3-4" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Pick the subject you want to prioritise first." } }] },
+      { "send": { "callback": "plan:subject:Biology" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Your plan is ready, Aarav. Start with Biology for 3-4 each day." } }] }
     ]
   }
 ]

@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Browse NCERT-aligned topic units"
+              "text": "Choose an NCERT unit to begin your revision."
             }
           }
         ],
@@ -15,6 +15,15 @@
           "callback": "lesson:menu"
         }
       }
+    ]
+  }
+  ,
+  {
+    "name": "A lesson expands and records revision",
+    "steps": [
+      { "send": { "callback": "lesson:menu" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Choose an NCERT unit to begin your revision." } }] },
+      { "send": { "callback": "lesson:cell" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Cell: the unit of life\n\nStart with membrane transport, organelles, and the difference between prokaryotic and eukaryotic cells." } }] },
+      { "send": { "callback": "lesson:deep:cell" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Deep revision: link each organelle to one function. Compare plant and animal cells, then practise NCERT diagram labels.\n\nMarked as revised." } }] }
     ]
   }
 ]

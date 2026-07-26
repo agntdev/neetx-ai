@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Open doubt submission interface"
+              "text": "Send your NEET doubt in one message. Include the chapter and what feels unclear."
             }
           }
         ],
@@ -15,6 +15,14 @@
           "callback": "doubt:submit"
         }
       }
+    ]
+  }
+  ,
+  {
+    "name": "A complex doubt is answered and flagged",
+    "steps": [
+      { "send": { "callback": "doubt:submit" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Send your NEET doubt in one message. Include the chapter and what feels unclear." } }] },
+      { "send": { "text": "This complex chemistry doubt needs teacher review urgently." }, "expect": [{ "method": "sendMessage", "payload": { "text": "Let’s solve it step by step.\n\n1. Identify the NCERT concept behind: This complex chemistry doubt needs teacher review urgently..\n2. Write the known values, definition, or diagram labels.\n3. Apply one rule at a time and check units or signs.\n4. Compare your final line with the NCERT statement.\n\nIf you share the exact options or image text, I can check your final step too.\n\nI’ve also marked this for a human tutor to review." } }] }
     ]
   }
 ]
