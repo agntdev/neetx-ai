@@ -1,6 +1,7 @@
 import { Composer } from "grammy";
 import type { Ctx } from "../bot.js";
 import { mainMenuKeyboard } from "../toolkit/index.js";
+import { expired, finish } from "../shared.js";
 
 // The /start handler renders the bot's MAIN MENU — the primary way users operate
 // a button-first bot. A feature adds its own button by calling
@@ -9,7 +10,7 @@ import { mainMenuKeyboard } from "../toolkit/index.js";
 // file to add a feature. Send ONE message — no placeholder line above the menu.
 const composer = new Composer<Ctx>();
 
-const WELCOME = "👋 Welcome! Tap a button below to get started.";
+const WELCOME = "Welcome to NEETX AI Tutor. Let’s make your NEET prep clear and consistent.";
 
 composer.command("start", async (ctx) => {
   await ctx.reply(WELCOME, { reply_markup: mainMenuKeyboard() });
@@ -19,6 +20,16 @@ composer.command("start", async (ctx) => {
 composer.callbackQuery("menu:main", async (ctx) => {
   await ctx.answerCallbackQuery();
   await ctx.editMessageText(WELCOME, { reply_markup: mainMenuKeyboard() });
+});
+
+// A stale partial form never traps a student in an old question.
+composer.on("message", async (ctx, next) => {
+  if (expired(ctx)) {
+    finish(ctx);
+    await ctx.reply("That unfinished step expired. Tap /start whenever you’re ready to continue.");
+    return;
+  }
+  return next();
 });
 
 export default composer;

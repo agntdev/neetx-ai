@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Browse premium content packs"
+              "text": "Choose a premium pack. Payment is handled by Telegram’s configured UPI partner; NEETX never stores payment details."
             }
           }
         ],
@@ -15,6 +15,14 @@
           "callback": "purchase:menu"
         }
       }
+    ]
+  }
+  ,
+  {
+    "name": "Purchase setup fails safely when no provider is configured",
+    "steps": [
+      { "send": { "callback": "purchase:menu" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Choose a premium pack. Payment is handled by Telegram’s configured UPI partner; NEETX never stores payment details." } }] },
+      { "send": { "callback": "purchase:pack:foundation" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Payments aren’t set up yet. Ask your NEETX teacher to enable the UPI payment partner, then try again." } }] }
     ]
   }
 ]

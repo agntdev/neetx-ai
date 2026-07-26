@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Begin full-length NEET simulation"
+              "text": "Your NEET mini-mock has started. Work section by section; your timer is running."
             }
           }
         ],
@@ -15,6 +15,19 @@
           "callback": "mock:start"
         }
       }
+    ]
+  }
+  ,
+  {
+    "name": "Mock test navigates sections and reports elapsed time",
+    "steps": [
+      { "send": { "callback": "mock:start" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Your NEET mini-mock has started. Work section by section; your timer is running." } }] },
+      { "send": { "callback": "mock:section:biology" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Biology: Which biomolecule stores hereditary information?" } }] },
+      { "send": { "callback": "mock:answer:biology:yes" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Biology saved. Continue when you’re ready." } }] },
+      { "send": { "callback": "mock:section:chemistry" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Chemistry: What is the pH of a neutral solution at 25°C?" } }] },
+      { "send": { "callback": "mock:answer:chemistry:yes" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Chemistry saved. Continue when you’re ready." } }] },
+      { "send": { "callback": "mock:section:physics" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Physics: Which SI unit measures force?" } }] },
+      { "send": { "callback": "mock:answer:physics:yes" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Mock complete in 0s. Your score: 12/12.\n\nBiology 4/4 · Chemistry 4/4 · Physics 4/4.\n\nRevise the sections below 4, then take another timed mock." } }] }
     ]
   }
 ]

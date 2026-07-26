@@ -6,7 +6,16 @@ import type { StorageAdapter } from "grammy";
 // bot grows. Durable domain data must NOT live here — use the toolkit's
 // persistent storage (see AGENTS.md).
 export interface Session {
-  // example: step?: "awaiting_amount";
+  step?: "idle" | "onboarding:name" | "onboarding:date" | "onboarding:score" | "onboarding:window" | "onboarding:subjects" | "doubt:question" | "mock:biology" | "mock:chemistry" | "mock:physics";
+  flowExpiresAt?: number;
+  draft?: { name?: string; examDate?: string; baselineScore?: number; studyWindow?: string };
+  profile?: { name: string; examDate: string; baselineScore: number; studyWindow: string; prioritySubjects: string[]; createdAt: string };
+  lessonProgress?: string[];
+  doubts?: Array<{ questionText: string; stepByStepAnswer: string; flaggedStatus: boolean; createdAt: string }>;
+  mock?: { startedAt: number; answers: Record<string, boolean> };
+  mockTests?: Array<{ timestamp: string; rawScore: number; sectionalBreakdown: { biology: number; chemistry: number; physics: number } }>;
+  mcqSeen?: number;
+  entitlement?: "foundation" | "rank-booster";
 }
 
 export type Ctx = BotContext<Session>;

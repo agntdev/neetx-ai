@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Start NEET-style question practice"
+              "text": "Which organelle is the main site of ATP production in eukaryotic cells?"
             }
           }
         ],
@@ -15,6 +15,14 @@
           "callback": "practice:mcq"
         }
       }
+    ]
+  }
+  ,
+  {
+    "name": "MCQ feedback is immediate",
+    "steps": [
+      { "send": { "callback": "practice:mcq" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Which organelle is the main site of ATP production in eukaryotic cells?" } }] },
+      { "send": { "callback": "mcq:0:yes" }, "expect": [{ "method": "editMessageText", "payload": { "text": "Correct. Keep connecting the answer to the NCERT line behind it." } }] }
     ]
   }
 ]
