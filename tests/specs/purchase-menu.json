@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Purchase Premium",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Browse premium content packs"
+            }
+          }
+        ],
+        "send": {
+          "callback": "purchase:menu"
+        }
+      }
+    ]
+  }
+]
