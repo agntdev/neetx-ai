@@ -1,7 +1,7 @@
 import { Composer } from "grammy";
 import type { Ctx } from "../bot.js";
 import { inlineButton, inlineKeyboard, registerMainMenuItem } from "../toolkit/index.js";
-import { begin, now, textOf } from "../shared.js";
+import { begin, expired, now, textOf } from "../shared.js";
 import { answerDoubt, type GeminiEnv } from "../gemini.js";
 
 // SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
@@ -22,6 +22,10 @@ composer.callbackQuery("doubt:submit", async (ctx) => {
 
 composer.on("message:text", async (ctx, next) => {
   if (ctx.session.step !== "doubt:question") return next();
+  if (expired(ctx)) {
+    await ctx.reply("That unfinished doubt expired. Tap Submit doubt and send it again when you’re ready.");
+    return;
+  }
   const question = textOf(ctx);
   if (!question || question.startsWith("/")) return next();
   if (question.length < 12) return void (await ctx.reply("Add a little more detail so I can guide you properly — chapter, question, and where you got stuck."));
